@@ -76,7 +76,15 @@
     border-bottom: 1px solid var(--color-neutral-300);
   }
 
+  .header-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+  }
+
   h1.trip-title {
+    flex: 1;
+    min-width: 0;
     font-family: var(--font);
     font-weight: 800;
     font-size: 2.375rem;
@@ -95,6 +103,268 @@
       -webkit-text-fill-color: initial;
       color: var(--color-text);
     }
+  }
+
+  .split-btn {
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--day1), var(--day2));
+    border: none;
+    border-radius: 14px;
+    color: #ffffff;
+    cursor: pointer;
+    padding: 0;
+    box-shadow: 0 8px 20px rgba(79, 70, 229, 0.28);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .split-btn:hover {
+    transform: translateY(-2px) scale(1.04);
+    box-shadow: 0 12px 26px rgba(79, 70, 229, 0.36);
+  }
+
+  .split-btn svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(29, 31, 32, 0.55);
+    backdrop-filter: blur(3px);
+    z-index: 1000;
+    align-items: flex-start;
+    justify-content: center;
+    padding: var(--space-6) var(--space-4);
+    overflow-y: auto;
+  }
+
+  .modal-overlay.open {
+    display: flex;
+  }
+
+  .modal-sheet {
+    background: #ffffff;
+    max-width: 480px;
+    width: 100%;
+    border: none;
+    border-radius: 22px;
+    padding: var(--space-6);
+    margin: var(--space-6) 0;
+    box-shadow: 0 30px 70px rgba(30, 27, 75, 0.25);
+    animation: modalIn 0.3s cubic-bezier(.2,.8,.2,1);
+  }
+
+  @keyframes modalIn {
+    from { opacity: 0; transform: translateY(16px) scale(0.98); }
+    to   { opacity: 1; transform: none; }
+  }
+
+  .modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--space-4);
+  }
+
+  .modal-title {
+    font-family: var(--font);
+    font-weight: 600;
+    font-size: 1.375rem;
+  }
+
+  .modal-close {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+    color: var(--color-neutral-700);
+    padding: 4px;
+  }
+
+  .split-section {
+    margin-bottom: var(--space-6);
+  }
+
+  .split-section-title {
+    font-family: var(--font);
+    font-weight: 600;
+    font-size: 1rem;
+    margin-bottom: var(--space-3);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2);
+  }
+
+  .split-subheading {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: var(--color-neutral-700);
+  }
+
+  .chip-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  .chip {
+    font-family: var(--font);
+    font-size: 0.875rem;
+    font-weight: 600;
+    padding: 6px 14px;
+    border: 1px solid var(--color-neutral-300);
+    background: transparent;
+    color: var(--color-neutral-700);
+    cursor: pointer;
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .chip:hover {
+    transform: translateY(-1px);
+  }
+
+  .chip.selected {
+    background: linear-gradient(135deg, var(--day1), var(--day2));
+    color: #ffffff;
+    border-color: transparent;
+    box-shadow: 0 6px 16px rgba(79, 70, 229, 0.28);
+  }
+
+  .chip-remove {
+    cursor: pointer;
+    font-weight: 800;
+    margin-left: 2px;
+  }
+
+  .split-input-row {
+    display: flex;
+    gap: var(--space-2);
+    margin-bottom: var(--space-3);
+  }
+
+  .split-input {
+    flex: 1;
+    min-width: 0;
+    font-family: var(--font);
+    font-size: 0.875rem;
+    padding: 9px 12px;
+    border: 1px solid var(--color-neutral-300);
+    border-radius: 12px;
+    color: var(--color-text);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .split-input:focus {
+    outline: none;
+    border-color: var(--day1);
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+  }
+
+  .split-btn-primary {
+    font-family: var(--font);
+    font-weight: 700;
+    font-size: 0.875rem;
+    padding: 9px 18px;
+    background: linear-gradient(135deg, var(--day1), var(--day2));
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+    border-radius: 999px;
+    white-space: nowrap;
+    box-shadow: 0 6px 16px rgba(79, 70, 229, 0.25);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .split-btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 22px rgba(79, 70, 229, 0.32);
+  }
+
+  .split-expense-form {
+    display: none;
+    border: 1px solid var(--color-neutral-300);
+    border-radius: 16px;
+    padding: var(--space-4);
+    margin-bottom: var(--space-3);
+    background: linear-gradient(180deg, rgba(79,70,229,0.03), transparent);
+  }
+
+  .expense-item {
+    display: flex;
+    align-items: center;
+    padding: var(--space-2) 0;
+    border-bottom: 1px solid var(--color-neutral-300);
+    gap: var(--space-2);
+  }
+
+  .expense-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .expense-desc {
+    font-weight: 600;
+    font-size: 0.875rem;
+  }
+
+  .expense-meta {
+    font-size: 0.75rem;
+    color: var(--color-neutral-700);
+    margin-top: 2px;
+  }
+
+  .expense-amount {
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .expense-actions {
+    display: flex;
+    gap: 4px;
+    flex-shrink: 0;
+  }
+
+  .expense-actions button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    padding: 2px 6px;
+    color: var(--color-accent-700);
+  }
+
+  .settlement-row {
+    display: flex;
+    justify-content: space-between;
+    padding: var(--space-2) 0;
+    border-bottom: 1px solid var(--color-neutral-300);
+    font-size: 0.875rem;
+  }
+
+  .settlement-amount {
+    font-weight: 800;
+    color: var(--day4);
+  }
+
+  .split-empty {
+    color: var(--color-neutral-700);
+    font-size: 0.875rem;
+    padding: var(--space-2) 0;
   }
 
   section.plan {
@@ -435,7 +705,15 @@
 <div class="page">
 
   <header class="trip-header">
-    <h1 class="trip-title">Chennai - Wayanad - Chennai</h1>
+    <div class="header-row">
+      <h1 class="trip-title">Chennai - Wayanad - Chennai</h1>
+      <button class="split-btn no-print" onclick="openSplitModal()" title="Split trip expenses" aria-label="Split trip expenses">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 3h16v18l-3-2-2 2-2-2-2 2-2-2-2 2-3-2V3z"/>
+          <path d="M8 8h8M8 12h8M8 16h4"/>
+        </svg>
+      </button>
+    </div>
   </header>
 
   <section class="plan">
@@ -641,6 +919,16 @@
             </div>
           </div>
 
+          <div class="route-strip-label">Optional: river rafting, on the way back</div>
+          <div class="places-grid">
+            <div>
+              <img class="place-photo" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/a/aa/Whitewater_rafting_in_Coorg%2C_India.jpg/960px-Whitewater_rafting_in_Coorg%2C_India.jpg" alt="AcePaddlers Barapole Rafting Center">
+              <div class="place-name">AcePaddlers &ndash; Barapole Rafting Center (optional)</div>
+              <a class="place-map-link no-print" href="https://www.google.com/maps/search/?api=1&query=AcePaddlers+Barapole+Rafting+Center,+KKR+Junction,+T.+Shettigeri,+Karnataka+571249" target="_blank" rel="noopener">View on map &#8599;</a>
+            </div>
+          </div>
+          <div class="note-box">KKR Junction, near Tata Tea Gardens, T. Shettigeri, Karnataka 571249. This is a detour off the NH48 route back &mdash; distance and fit still TBD, keeping it here as a placeholder to decide on later.</div>
+
           <div class="route-strip-label">Then, the drive back</div>
           <div class="route-row">
             <div class="route-label">Wayanad</div>
@@ -664,6 +952,275 @@
   </section>
 
 </div>
+
+<div class="modal-overlay no-print" id="splitModal" onclick="if(event.target===this) closeSplitModal()">
+  <div class="modal-sheet">
+    <div class="modal-header">
+      <div class="modal-title">Split Expenses</div>
+      <button class="modal-close" onclick="closeSplitModal()" aria-label="Close">&times;</button>
+    </div>
+
+    <div class="split-section">
+      <div class="split-section-title"><span>People</span></div>
+      <div class="split-input-row">
+        <input type="text" class="split-input" id="splitPersonInput" placeholder="Add a person" onkeydown="if(event.key==='Enter'){event.preventDefault();addSplitPerson();}">
+        <button class="split-btn-primary" onclick="addSplitPerson()">Add</button>
+      </div>
+      <div class="chip-row" id="splitPeopleChips"></div>
+    </div>
+
+    <div class="split-section">
+      <div class="split-section-title">
+        <span>Expenses</span>
+        <button class="split-btn-primary" onclick="showAddExpenseForm()">+ Add expense</button>
+      </div>
+
+      <div class="split-expense-form" id="splitExpenseForm">
+        <div class="split-input-row">
+          <input type="text" class="split-input" id="expenseDesc" placeholder="e.g., Dinner, Cab, Hotel">
+        </div>
+        <div class="split-input-row">
+          <input type="text" class="split-input" id="expenseAmount" placeholder="Amount (&#8377;)" inputmode="decimal">
+        </div>
+        <div style="margin-bottom:var(--space-3);">
+          <div class="split-subheading">Paid by</div>
+          <div class="chip-row" id="paidByChips"></div>
+        </div>
+        <div style="margin-bottom:var(--space-3);">
+          <div class="split-subheading">Split among (tap to toggle)</div>
+          <div class="chip-row" id="splitAmongChips"></div>
+        </div>
+        <div style="display:flex;gap:var(--space-2);">
+          <button class="split-btn-primary" onclick="saveSplitExpense()">Save</button>
+          <button class="chip" onclick="cancelExpenseForm()">Cancel</button>
+        </div>
+      </div>
+
+      <div id="splitExpenseList"></div>
+    </div>
+
+    <div class="split-section" style="margin-bottom:0;">
+      <div class="split-section-title"><span id="splitTotal">Total spent: &#8377;0</span></div>
+      <div id="splitSettlements"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  var STORAGE_KEY = 'wayanadTripSplitter';
+  var data = loadData();
+  var editingExpenseId = null;
+  var formPaidBy = null;
+  var formSplit = [];
+  var showForm = false;
+
+  function loadData() {
+    try {
+      var raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) {
+        var parsed = JSON.parse(raw);
+        return { people: parsed.people || [], expenses: parsed.expenses || [] };
+      }
+    } catch (e) {}
+    return { people: [], expenses: [] };
+  }
+  function saveData() {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch (e) {}
+  }
+  function uid() { return Math.random().toString(36).slice(2, 10); }
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+  function fmt(n) { return '₹' + Math.round(n).toLocaleString('en-IN'); }
+  function parseAmt(s) { return parseFloat(String(s).replace(/,/g, '')) || 0; }
+  function nameOf(id) {
+    var p = data.people.filter(function (x) { return x.id === id; })[0];
+    return p ? p.name : '?';
+  }
+
+  window.openSplitModal = function () {
+    document.getElementById('splitModal').classList.add('open');
+    showForm = false;
+    render();
+  };
+  window.closeSplitModal = function () {
+    document.getElementById('splitModal').classList.remove('open');
+  };
+
+  window.addSplitPerson = function () {
+    var input = document.getElementById('splitPersonInput');
+    var name = input.value.trim();
+    if (!name) return;
+    data.people.push({ id: uid(), name: name });
+    input.value = '';
+    saveData();
+    render();
+  };
+  window.removeSplitPerson = function (id) {
+    var used = data.expenses.some(function (e) {
+      return e.paidBy === id || (e.splitAmong || []).indexOf(id) !== -1;
+    });
+    if (used && !confirm('This person is part of existing expenses. Remove them anyway?')) return;
+    data.people = data.people.filter(function (p) { return p.id !== id; });
+    saveData();
+    render();
+  };
+
+  window.showAddExpenseForm = function () {
+    if (!data.people.length) { alert('Add at least one person first.'); return; }
+    editingExpenseId = null;
+    formPaidBy = data.people[0].id;
+    formSplit = data.people.map(function (p) { return p.id; });
+    document.getElementById('expenseDesc').value = '';
+    document.getElementById('expenseAmount').value = '';
+    showForm = true;
+    render();
+  };
+  window.editSplitExpense = function (id) {
+    var e = data.expenses.filter(function (x) { return x.id === id; })[0];
+    if (!e) return;
+    editingExpenseId = id;
+    document.getElementById('expenseDesc').value = e.desc || '';
+    document.getElementById('expenseAmount').value = e.amount;
+    var validIds = {};
+    data.people.forEach(function (p) { validIds[p.id] = true; });
+    formPaidBy = validIds[e.paidBy] ? e.paidBy : data.people[0].id;
+    formSplit = (e.splitAmong || []).filter(function (pid) { return validIds[pid]; });
+    if (!formSplit.length) formSplit = data.people.map(function (p) { return p.id; });
+    showForm = true;
+    render();
+  };
+  window.cancelExpenseForm = function () {
+    showForm = false;
+    render();
+  };
+  window.setFormPaidBy = function (id) { formPaidBy = id; render(); };
+  window.toggleFormSplit = function (id) {
+    formSplit = formSplit.indexOf(id) !== -1
+      ? formSplit.filter(function (x) { return x !== id; })
+      : formSplit.concat([id]);
+    render();
+  };
+  window.saveSplitExpense = function () {
+    var desc = document.getElementById('expenseDesc').value.trim();
+    var amount = parseAmt(document.getElementById('expenseAmount').value);
+    if (!amount || amount <= 0) { alert('Please enter a valid amount.'); return; }
+    if (!formPaidBy) { alert('Please select who paid.'); return; }
+    if (!formSplit.length) { alert('Please select at least one person to split among.'); return; }
+    if (editingExpenseId) {
+      var e = data.expenses.filter(function (x) { return x.id === editingExpenseId; })[0];
+      if (e) {
+        e.desc = desc || 'Expense';
+        e.amount = amount;
+        e.paidBy = formPaidBy;
+        e.splitAmong = formSplit.slice();
+      }
+    } else {
+      data.expenses.push({
+        id: uid(), desc: desc || 'Expense', amount: amount,
+        paidBy: formPaidBy, splitAmong: formSplit.slice(),
+        createdAt: Date.now(),
+      });
+    }
+    saveData();
+    showForm = false;
+    render();
+  };
+  window.deleteSplitExpense = function (id) {
+    if (!confirm('Delete this expense?')) return;
+    data.expenses = data.expenses.filter(function (e) { return e.id !== id; });
+    saveData();
+    render();
+  };
+
+  function computeSettlements() {
+    var net = {};
+    data.people.forEach(function (p) { net[p.id] = 0; });
+    data.expenses.forEach(function (e) {
+      var n = (e.splitAmong || []).length || 1;
+      var share = e.amount / n;
+      net[e.paidBy] = (net[e.paidBy] || 0) + e.amount;
+      (e.splitAmong || []).forEach(function (pid) { net[pid] = (net[pid] || 0) - share; });
+    });
+    var creditors = Object.keys(net).filter(function (id) { return net[id] > 0.5; })
+      .map(function (id) { return { id: id, amt: net[id] }; }).sort(function (a, b) { return b.amt - a.amt; });
+    var debtors = Object.keys(net).filter(function (id) { return net[id] < -0.5; })
+      .map(function (id) { return { id: id, amt: -net[id] }; }).sort(function (a, b) { return b.amt - a.amt; });
+    var settlements = [];
+    var ci = 0, di = 0;
+    while (ci < creditors.length && di < debtors.length) {
+      var c = creditors[ci], d = debtors[di];
+      var amt = Math.min(c.amt, d.amt);
+      settlements.push({ from: d.id, to: c.id, amount: amt });
+      c.amt -= amt; d.amt -= amt;
+      if (c.amt < 0.5) ci++;
+      if (d.amt < 0.5) di++;
+    }
+    return settlements;
+  }
+
+  function render() {
+    document.getElementById('splitPeopleChips').innerHTML = data.people.length
+      ? data.people.map(function (p) {
+          return '<span class="chip">' + escapeHtml(p.name) +
+            '<span class="chip-remove" onclick="removeSplitPerson(\'' + p.id + '\')">&times;</span></span>';
+        }).join('')
+      : '<div class="split-empty">No people yet &mdash; add trip companions above.</div>';
+
+    var formEl = document.getElementById('splitExpenseForm');
+    if (showForm) {
+      formEl.style.display = 'block';
+      document.getElementById('paidByChips').innerHTML = data.people.map(function (p) {
+        return '<button type="button" class="chip' + (formPaidBy === p.id ? ' selected' : '') +
+          '" onclick="setFormPaidBy(\'' + p.id + '\')">' + escapeHtml(p.name) + '</button>';
+      }).join('');
+      document.getElementById('splitAmongChips').innerHTML = data.people.map(function (p) {
+        return '<button type="button" class="chip' + (formSplit.indexOf(p.id) !== -1 ? ' selected' : '') +
+          '" onclick="toggleFormSplit(\'' + p.id + '\')">' + escapeHtml(p.name) + '</button>';
+      }).join('');
+    } else {
+      formEl.style.display = 'none';
+    }
+
+    var sorted = data.expenses.slice().sort(function (a, b) { return (b.createdAt || 0) - (a.createdAt || 0); });
+    document.getElementById('splitExpenseList').innerHTML = sorted.length
+      ? sorted.map(function (e) {
+          var n = (e.splitAmong || []).length;
+          return '<div class="expense-item">' +
+            '<div class="expense-info">' +
+              '<div class="expense-desc">' + escapeHtml(e.desc || 'Expense') + '</div>' +
+              '<div class="expense-meta">Paid by ' + escapeHtml(nameOf(e.paidBy)) + ' &middot; split ' + n + ' way' + (n !== 1 ? 's' : '') + '</div>' +
+            '</div>' +
+            '<div class="expense-amount">' + fmt(e.amount) + '</div>' +
+            '<div class="expense-actions">' +
+              '<button onclick="editSplitExpense(\'' + e.id + '\')">Edit</button>' +
+              '<button onclick="deleteSplitExpense(\'' + e.id + '\')">&times;</button>' +
+            '</div>' +
+          '</div>';
+        }).join('')
+      : '<div class="split-empty">No expenses yet.</div>';
+
+    var settlements = computeSettlements();
+    var total = data.expenses.reduce(function (s, e) { return s + e.amount; }, 0);
+    document.getElementById('splitTotal').textContent = 'Total spent: ' + fmt(total);
+    document.getElementById('splitSettlements').innerHTML = settlements.length
+      ? settlements.map(function (s) {
+          return '<div class="settlement-row"><span><b>' + escapeHtml(nameOf(s.from)) + '</b> owes <b>' +
+            escapeHtml(nameOf(s.to)) + '</b></span><span class="settlement-amount">' + fmt(s.amount) + '</span></div>';
+        }).join('')
+      : '<div class="split-empty">Everyone is settled up.</div>';
+  }
+
+  document.addEventListener('keydown', function (ev) {
+    if (ev.key === 'Escape') window.closeSplitModal();
+  });
+
+  render();
+})();
+</script>
 
 <script>
 (function () {
