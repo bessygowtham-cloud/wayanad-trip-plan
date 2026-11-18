@@ -29,6 +29,7 @@
     --day2: #0d9488;   --day2-glow: rgba(13,148,136,0.30);
     --day3: #d97706;   --day3-glow: rgba(217,119,6,0.30);
     --day4: #e11d48;   --day4-glow: rgba(225,29,72,0.28);
+    --day5: #7c3aed;   --day5-glow: rgba(124,58,237,0.28);
   }
 
   * { box-sizing: border-box; }
@@ -90,7 +91,7 @@
     font-size: 2.375rem;
     margin: 0 0 var(--space-2);
     letter-spacing: -0.01em;
-    background: linear-gradient(100deg, var(--day1), var(--day2) 45%, var(--day3) 75%, var(--day4));
+    background: linear-gradient(100deg, var(--day1), var(--day2) 35%, var(--day3) 60%, var(--day4) 80%, var(--day5));
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -846,7 +847,7 @@
               <a class="place-map-link no-print" href="https://www.google.com/maps/search/?api=1&query=Makkiyad+Meenmutty+Waterfalls,+Wayanad,+India" target="_blank" rel="noopener">View on map &#8599;</a>
             </div>
           </div>
-          <div class="note-box">These two are up SH54, the hotel's own direction &mdash; not near Chembra, so moved here from Day 3 (which also starts from the same hotel). Check in around 12&ndash;1 PM, rest, then Banasura Sagar Dam is 16.8 km, Meenmutty Falls another 23.5 km past it, then back to the hotel (37.2 km). Pookode Lake, Lakkidi View Point and Kariyathumpara moved to Day 4 for now &mdash; may adjust later.</div>
+          <div class="note-box">These two are up SH54, the hotel's own direction &mdash; not near Chembra, so moved here from Day 3 (which also starts from the same hotel). Check in around 12&ndash;1 PM, rest, then Banasura Sagar Dam is 16.8 km, Meenmutty Falls another 23.5 km past it, then back to the hotel (37.2 km). Pookode Lake, Lakkidi View Point and Kariyathumpara are currently unplaced &mdash; pulled from Day 4 when that day's route changed to Masinagudi; need a new home (e.g. back here, or dropped) &mdash; to decide.</div>
         </div>
       </div>
     </div>
@@ -905,60 +906,81 @@
     <!-- Day 4 (final) -->
     <div class="day-row reveal" style="--day-accent:var(--day4);--day-glow:var(--day4-glow);">
       <div class="rail">
-        <div class="dot dot-final"></div>
+        <div class="dot"></div>
+        <div class="connector"></div>
       </div>
       <div class="day-content">
         <div class="day-inner">
           <div class="day-kicker-row">
             <div class="day-num">Day 4</div>
             <div class="day-date">Sat 28 Nov</div>
-            <span class="time-pill">Start 7 AM</span>
+            <span class="time-pill">Depart by 4 PM</span>
           </div>
-          <div class="day-title">Pookode &amp; Lakkidi, then the drive to Chennai</div>
-          <div class="day-km-total">&#128663; ~664.4 km of driving today (31.4 km morning loop + 633 km home)</div>
+          <div class="day-title">Wayanad to Masinagudi, forest stay</div>
+          <div class="day-km-total">&#128663; ~93.5 km of driving today</div>
 
-          <div class="route-strip-label">Morning stops, before setting off</div>
-          <div class="day-map no-print">
-            <iframe src="https://www.google.com/maps?q=Pookode+Lake,+Wayanad,+Kerala,+India&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Day 4 morning: Pookode Lake"></iframe>
+          <div class="route-strip-label">Route to Masinagudi</div>
+          <div class="route-row">
+            <div class="route-label">Kalpetta</div>
+            <div class="route-rule"></div>
+            <div class="route-label">Masinagudi</div>
+          </div>
+          <div class="route-badge-wrap">
+            <span class="tag-accent">93.5 km &middot; ~2h 50m</span>
+          </div>
+          <div class="day-map no-print" style="margin-top:var(--space-4);">
+            <iframe src="https://www.google.com/maps?saddr=Kalpetta,+Wayanad,+Kerala,+India&daddr=Masinagudi,+Tamil+Nadu,+India&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Day 4 route: Wayanad to Masinagudi"></iframe>
             <div class="map-actions">
-              <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Pookode+Lake,+Wayanad,+Kerala,+India" target="_blank" rel="noopener">View area on map &#8599;</a>
+              <a class="map-link" href="https://www.google.com/maps/dir/?api=1&origin=Kalpetta,+Wayanad,+Kerala,+India&destination=Masinagudi,+Tamil+Nadu,+India&travelmode=driving" target="_blank" rel="noopener">Get directions &#8599;</a>
             </div>
           </div>
+          <div class="note-box">Via Sulthan Bathery (24 km) &rarr; Gudalur (44.2 km more) &rarr; Masinagudi (25.3 km more). This crosses the Mudumalai forest stretch, which (like Bandipur) is closed to all vehicles 9 PM&ndash;6 AM &mdash; the same rule on both the Mysuru and Masinagudi roads, since it's one contiguous reserve. At ~3h total, there's room to leave well before dark; depart by 4 PM to be safely checked in before the closure, earlier if you want daylight at the resort.</div>
+
+          <div class="route-strip-label">Stay: forest resort, Masinagudi</div>
           <div class="places-grid">
             <div>
-              <img class="place-photo" src="https://upload.wikimedia.org/wikipedia/en/0/0d/PookodeLake.jpg" alt="Pookode Lake">
-              <div class="place-name">Pookode Lake</div>
-              <a class="place-map-link no-print" href="https://www.google.com/maps/search/?api=1&query=Pookode+Lake,+Wayanad,+India" target="_blank" rel="noopener">View on map &#8599;</a>
-            </div>
-            <div>
-              <img class="place-photo" src="https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5d/Lakkidi_view_point_-_vinnila2k24_%281%29.jpg/960px-Lakkidi_view_point_-_vinnila2k24_%281%29.jpg" alt="Lakkidi View Point">
-              <div class="place-name">Lakkidi View Point</div>
-              <a class="place-map-link no-print" href="https://www.google.com/maps/search/?api=1&query=Lakkidi+View+Point,+Wayanad,+India" target="_blank" rel="noopener">View on map &#8599;</a>
-            </div>
-            <div>
-              <div class="place-photo-placeholder">Photo coming soon</div>
-              <div class="place-name">Kariyathumpara <span class="optional-pill">Optional</span></div>
-              <a class="place-map-link no-print" href="https://www.google.com/maps/search/?api=1&query=Kariyathumpara,+Keralam+673527" target="_blank" rel="noopener">View on map &#8599;</a>
+              <div class="place-photo-placeholder">Forest resort TBD</div>
+              <div class="place-name">Masinagudi forest stay (placeholder)</div>
+              <a class="place-map-link no-print" href="https://www.google.com/maps/search/?api=1&query=Masinagudi,+Tamil+Nadu,+India" target="_blank" rel="noopener">View on map &#8599;</a>
             </div>
           </div>
-          <div class="note-box">Moved here from Day 2 for now &mdash; may adjust later. Pookode Lake (11.7 km) then Lakkidi View Point (4.1 km more), both via NH766, then back to Kalpetta (15.6 km) to start the drive. Heads up: this is the opposite direction from the Gundlupet/Mysuru route to Chennai, so it adds a backtrack before the long drive &mdash; start early. Kariyathumpara is a further 37.5 km past Lakkidi (~75 km extra round trip) &mdash; kept optional given the 12.5h drive ahead.</div>
+          <div class="note-box">Masinagudi is known for its jungle resorts right against the Mudumalai Tiger Reserve &mdash; good options exist, just not booked yet. Covers ~93.5 km today so Day 5's drive is noticeably shorter than doing it all in one day.</div>
+        </div>
+      </div>
+    </div>
+    <div class="day-divider"></div>
 
-          <div class="route-strip-label">Then, the drive back</div>
+    <!-- Day 5 (final) -->
+    <div class="day-row reveal" style="--day-accent:var(--day5);--day-glow:var(--day5-glow);">
+      <div class="rail">
+        <div class="dot dot-final"></div>
+      </div>
+      <div class="day-content">
+        <div class="day-inner">
+          <div class="day-kicker-row">
+            <div class="day-num">Day 5</div>
+            <div class="day-date">Sun 29 Nov</div>
+            <span class="time-pill">Start fresh, morning</span>
+          </div>
+          <div class="day-title">Masinagudi to Chennai</div>
+          <div class="day-km-total">&#128663; ~572 km of driving today</div>
+
+          <div class="route-strip-label">The drive back</div>
           <div class="route-row">
-            <div class="route-label">Wayanad</div>
+            <div class="route-label">Masinagudi</div>
             <div class="route-rule"></div>
             <div class="route-label">Chennai</div>
           </div>
           <div class="route-badge-wrap">
-            <span class="tag-accent">633 km &middot; ~12h 30m</span>
+            <span class="tag-accent">~572 km &middot; ~10h 40m</span>
           </div>
           <div class="day-map no-print" style="margin-top:var(--space-4);">
-            <iframe src="https://www.google.com/maps?saddr=Kalpetta,+Wayanad,+Kerala,+India&daddr=Chennai,+India&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Day 4 route: Wayanad to Chennai"></iframe>
+            <iframe src="https://www.google.com/maps?saddr=Masinagudi,+Tamil+Nadu,+India&daddr=Chennai,+India&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Day 5 route: Masinagudi to Chennai"></iframe>
             <div class="map-actions">
-              <a class="map-link" href="https://www.google.com/maps/dir/?api=1&origin=Kalpetta,+Wayanad,+Kerala,+India&destination=Chennai,+India&travelmode=driving" target="_blank" rel="noopener">Get directions &#8599;</a>
+              <a class="map-link" href="https://www.google.com/maps/dir/?api=1&origin=Masinagudi,+Tamil+Nadu,+India&destination=Chennai,+India&travelmode=driving" target="_blank" rel="noopener">Get directions &#8599;</a>
             </div>
           </div>
-          <div class="note-box">Same NH48 route back via Gundlupet, Mysuru and Bengaluru. ~12.5h is a lot for one day after a short trip &mdash; consider leaving by early afternoon so you're not driving too deep into the night, or splitting it with a halt.</div>
+          <div class="note-box">Start fresh from the resort. The fastest path back is actually via NH48 &mdash; a short hop to Gundlupet (rejoining the same road Day 1 came in on), then Mysuru, Bengaluru and on to Chennai &mdash; shorter than continuing south via Coimbatore/Salem. Still a long day at ~10h40m, but ~93.5 km lighter than doing the whole 633 km in one go, and broken into two.</div>
         </div>
       </div>
     </div>
