@@ -984,27 +984,32 @@
   </div>
 </div>
 
-<script>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+import { getFirestore, doc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+
 (function () {
-  var STORAGE_KEY = 'wayanadTripSplitter';
-  var data = loadData();
+  var firebaseConfig = {
+    apiKey: "AIzaSyBb6zh5eL8_J22mPHIQVCs5srymh4bnyZQ",
+    authDomain: "wayanad-trip-3b92b.firebaseapp.com",
+    projectId: "wayanad-trip-3b92b",
+    storageBucket: "wayanad-trip-3b92b.firebasestorage.app",
+    messagingSenderId: "262009468302",
+    appId: "1:262009468302:web:ba2d1dfba16e319599a0df"
+  };
+  var app = initializeApp(firebaseConfig);
+  var db = getFirestore(app);
+  var splitDocRef = doc(db, "wayanadTrip", "splitExpenses");
+  var OLD_STORAGE_KEY = 'wayanadTripSplitter';
+
+  var data = { people: [], expenses: [] };
   var editingExpenseId = null;
   var formPaidBy = null;
   var formSplit = [];
   var showForm = false;
 
-  function loadData() {
-    try {
-      var raw = localStorage.getItem(STORAGE_KEY);
-      if (raw) {
-        var parsed = JSON.parse(raw);
-        return { people: parsed.people || [], expenses: parsed.expenses || [] };
-      }
-    } catch (e) {}
-    return { people: [], expenses: [] };
-  }
   function saveData() {
-    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch (e) {}
+    setDoc(splitDocRef, data).catch(function (e) { console.error('Split Expenses: save failed', e); });
   }
   function uid() { return Math.random().toString(36).slice(2, 10); }
   function escapeHtml(s) {
@@ -1196,7 +1201,28 @@
     if (ev.key === 'Escape') window.closeSplitModal();
   });
 
-  render();
+  onSnapshot(splitDocRef, function (snap) {
+    if (snap.exists()) {
+      var d = snap.data();
+      data = { people: d.people || [], expenses: d.expenses || [] };
+    } else {
+      // First person to open this after setup: migrate any of their own
+      // previously-local data (old per-device localStorage) as the seed.
+      var migrated = { people: [], expenses: [] };
+      try {
+        var raw = localStorage.getItem(OLD_STORAGE_KEY);
+        if (raw) {
+          var parsed = JSON.parse(raw);
+          migrated = { people: parsed.people || [], expenses: parsed.expenses || [] };
+        }
+      } catch (e) {}
+      data = migrated;
+      setDoc(splitDocRef, migrated).catch(function (e) { console.error('Split Expenses: migration failed', e); });
+    }
+    render();
+  }, function (err) {
+    console.error('Split Expenses: sync error', err);
+  });
 })();
 </script>
 
