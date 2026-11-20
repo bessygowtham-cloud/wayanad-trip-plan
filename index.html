@@ -193,7 +193,36 @@
   }
 
   .modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
     margin-bottom: var(--space-4);
+  }
+
+  .people-toggle-btn {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background: var(--color-neutral-300);
+    color: var(--color-text);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+
+  .people-toggle-btn svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .people-toggle-btn.active {
+    background: linear-gradient(135deg, var(--day1), var(--day2));
+    color: #ffffff;
   }
 
   .modal-title {
@@ -377,6 +406,19 @@
     font-weight: 600;
     padding: 2px 6px;
     color: var(--color-accent-700);
+  }
+
+  .expense-delete-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px;
+    color: var(--day4);
+  }
+
+  .expense-delete-btn svg {
+    width: 20px;
+    height: 20px;
   }
 
   .settlement-row {
@@ -957,9 +999,17 @@
   <div class="modal-sheet">
     <div class="modal-header">
       <div class="modal-title">Split Expenses</div>
+      <button class="people-toggle-btn" id="peopleToggleBtn" onclick="togglePeoplePanel()" aria-label="Manage people" title="Manage people">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+          <circle cx="9" cy="7" r="4"/>
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+          <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+        </svg>
+      </button>
     </div>
 
-    <div class="split-section">
+    <div class="split-section" id="peoplePanel" style="display:none;">
       <div class="split-section-title"><span>People</span></div>
       <div class="split-input-row">
         <input type="text" class="split-input" id="splitPersonInput" placeholder="Add a person" onkeydown="if(event.key==='Enter'){event.preventDefault();addSplitPerson();}">
@@ -1051,6 +1101,13 @@ import { getFirestore, doc, setDoc, onSnapshot } from "https://www.gstatic.com/f
   };
   window.closeSplitModal = function () {
     document.getElementById('splitModal').classList.remove('open');
+  };
+  window.togglePeoplePanel = function () {
+    var panel = document.getElementById('peoplePanel');
+    var btn = document.getElementById('peopleToggleBtn');
+    var open = panel.style.display === 'none';
+    panel.style.display = open ? 'block' : 'none';
+    btn.classList.toggle('active', open);
   };
 
   window.addSplitPerson = function () {
@@ -1203,7 +1260,12 @@ import { getFirestore, doc, setDoc, onSnapshot } from "https://www.gstatic.com/f
             '<div class="expense-amount">' + fmt(e.amount) + '</div>' +
             '<div class="expense-actions">' +
               '<button onclick="editSplitExpense(\'' + e.id + '\')">Edit</button>' +
-              '<button onclick="deleteSplitExpense(\'' + e.id + '\')">&times;</button>' +
+              '<button class="expense-delete-btn" onclick="deleteSplitExpense(\'' + e.id + '\')" aria-label="Delete expense">' +
+                '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+                  '<path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>' +
+                  '<line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/>' +
+                '</svg>' +
+              '</button>' +
             '</div>' +
           '</div>';
         }).join('')
