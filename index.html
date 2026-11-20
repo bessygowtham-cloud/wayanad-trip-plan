@@ -1049,7 +1049,10 @@ import { getFirestore, doc, setDoc, onSnapshot } from "https://www.gstatic.com/f
     var used = data.expenses.some(function (e) {
       return e.paidBy === id || (e.splitAmong || []).indexOf(id) !== -1;
     });
-    if (used && !confirm('This person is part of existing expenses. Remove them anyway?')) return;
+    var msg = used
+      ? 'This person is part of existing expenses. Remove them anyway?'
+      : 'Remove ' + nameOf(id) + ' from this trip?';
+    if (!confirm(msg)) return;
     data.people = data.people.filter(function (p) { return p.id !== id; });
     saveData();
     render();
