@@ -1088,7 +1088,7 @@
         </div>
         <div style="display:flex;gap:var(--space-3);align-items:center;margin-top:var(--space-2);padding-top:var(--space-4);border-top:1px solid var(--color-neutral-300);">
           <button class="chip" style="flex:1;justify-content:center;" onclick="cancelExpenseForm()">Cancel</button>
-          <button class="split-btn-primary" style="flex:1;" onclick="saveSplitExpense()">Save</button>
+          <button class="split-btn-primary" style="flex:1;" id="expenseSaveBtn" onclick="saveSplitExpense()">Add</button>
         </div>
       </div>
 
@@ -1299,6 +1299,7 @@ import { getFirestore, doc, setDoc, onSnapshot } from "https://www.gstatic.com/f
     var formEl = document.getElementById('splitExpenseForm');
     if (showForm) {
       formEl.style.display = 'block';
+      document.getElementById('expenseSaveBtn').textContent = editingExpenseId ? 'Save' : 'Add';
       document.getElementById('paidByChips').innerHTML = data.people.map(function (p) {
         return '<button type="button" class="chip' + (formPaidBy === p.id ? ' selected' : '') +
           '" onclick="setFormPaidBy(\'' + p.id + '\')">' + escapeHtml(p.name) + '</button>';
