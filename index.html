@@ -387,53 +387,6 @@
     page-break-inside: avoid;
   }
 
-  .rail {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 24px;
-    flex-shrink: 0;
-  }
-
-  .dot {
-    position: relative;
-    width: 14px;
-    height: 14px;
-    border: 2px solid var(--day-accent, var(--color-accent-700));
-    border-radius: 50%;
-    background: #ffffff;
-    margin-top: 12px;
-    box-shadow: 0 0 0 4px var(--day-glow, transparent);
-  }
-
-  .dot::after {
-    content: '';
-    position: absolute;
-    inset: -6px;
-    border-radius: 50%;
-    border: 2px solid var(--day-accent, var(--color-accent-700));
-    opacity: 0;
-    animation: dotPulse 2.6s ease-out infinite;
-  }
-
-  @keyframes dotPulse {
-    0%   { opacity: 0.55; transform: scale(0.6); }
-    70%  { opacity: 0;    transform: scale(1.8); }
-    100% { opacity: 0;    transform: scale(1.8); }
-  }
-
-  .dot.dot-final {
-    background: var(--day-accent, var(--color-accent-700));
-  }
-
-  .connector {
-    width: 2px;
-    flex: 1;
-    min-height: 56px;
-    background: repeating-linear-gradient(to bottom, var(--day-accent, var(--color-neutral-400)) 0 4px, transparent 4px 8px);
-    opacity: 0.55;
-  }
-
   .day-content {
     flex: 1;
     padding-bottom: var(--space-4);
@@ -709,7 +662,6 @@
     .day-row { break-inside: avoid; page-break-inside: avoid; }
     .no-print { display: none !important; }
     .reveal { opacity: 1 !important; transform: none !important; }
-    .dot::after { display: none; }
     .day-inner { box-shadow: none; transform: none; }
     .day-inner:hover { box-shadow: none; transform: none; }
     .tag-accent, .time-pill { box-shadow: none; }
@@ -736,10 +688,6 @@
 
     <!-- Day 1 -->
     <div class="day-row reveal" style="--day-accent:var(--day1);--day-glow:var(--day1-glow);">
-      <div class="rail">
-        <div class="dot"></div>
-        <div class="connector"></div>
-      </div>
       <div class="day-content">
         <div class="day-inner">
           <div class="day-kicker-row">
@@ -773,10 +721,6 @@
 
     <!-- Day 2 -->
     <div class="day-row reveal" style="--day-accent:var(--day2);--day-glow:var(--day2-glow);">
-      <div class="rail">
-        <div class="dot"></div>
-        <div class="connector"></div>
-      </div>
       <div class="day-content">
         <div class="day-inner">
           <div class="day-kicker-row">
@@ -854,10 +798,6 @@
 
     <!-- Day 3 -->
     <div class="day-row reveal" style="--day-accent:var(--day3);--day-glow:var(--day3-glow);">
-      <div class="rail">
-        <div class="dot"></div>
-        <div class="connector"></div>
-      </div>
       <div class="day-content">
         <div class="day-inner">
           <div class="day-kicker-row">
@@ -904,10 +844,6 @@
 
     <!-- Day 4 (final) -->
     <div class="day-row reveal" style="--day-accent:var(--day4);--day-glow:var(--day4-glow);">
-      <div class="rail">
-        <div class="dot"></div>
-        <div class="connector"></div>
-      </div>
       <div class="day-content">
         <div class="day-inner">
           <div class="day-kicker-row">
@@ -951,9 +887,6 @@
 
     <!-- Day 5 (final) -->
     <div class="day-row reveal" style="--day-accent:var(--day5);--day-glow:var(--day5-glow);">
-      <div class="rail">
-        <div class="dot dot-final"></div>
-      </div>
       <div class="day-content">
         <div class="day-inner">
           <div class="day-kicker-row">
