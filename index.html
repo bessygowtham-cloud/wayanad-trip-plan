@@ -240,6 +240,31 @@
     border-bottom: 1px solid var(--color-neutral-300);
   }
 
+  .split-tabs {
+    display: flex;
+    gap: var(--space-5);
+    margin-bottom: var(--space-4);
+    border-bottom: 1px solid var(--color-neutral-300);
+  }
+
+  .split-tab {
+    background: none;
+    border: none;
+    font-family: var(--font);
+    font-weight: 700;
+    font-size: 0.9375rem;
+    padding: 0 0 10px;
+    margin-bottom: -1px;
+    color: var(--color-neutral-700);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+  }
+
+  .split-tab.active {
+    color: var(--day1);
+    border-bottom-color: var(--day1);
+  }
+
   .split-section-title {
     font-family: var(--font);
     font-weight: 600;
@@ -1018,11 +1043,12 @@
       <div class="chip-row" id="splitPeopleChips"></div>
     </div>
 
-    <div class="split-section">
-      <div class="split-section-title">
-        <span>Expenses</span>
-      </div>
+    <div class="split-tabs">
+      <button class="split-tab active" id="tabExpensesBtn" onclick="switchSplitTab('expenses')">Expenses</button>
+      <button class="split-tab" id="tabTotalBtn" onclick="switchSplitTab('total')"><span id="splitTotal">Total spent: &#8377;0</span></button>
+    </div>
 
+    <div class="split-section" id="expensesTabPanel" style="margin-bottom:0;">
       <div class="split-expense-form" id="splitExpenseForm">
         <div class="split-input-row">
           <input type="text" class="split-input" id="expenseDesc" placeholder="e.g., Dinner, Cab, Hotel">
@@ -1047,8 +1073,7 @@
       <div id="splitExpenseList"></div>
     </div>
 
-    <div class="split-section" style="margin-bottom:0;">
-      <div class="split-section-title"><span id="splitTotal">Total spent: &#8377;0</span></div>
+    <div class="split-section" id="totalTabPanel" style="display:none; margin-bottom:0;">
       <div id="splitSettlements"></div>
     </div>
   </div>
@@ -1077,6 +1102,16 @@ import { getFirestore, doc, setDoc, onSnapshot } from "https://www.gstatic.com/f
   var formPaidBy = null;
   var formSplit = [];
   var showForm = false;
+  var activeSplitTab = 'expenses';
+
+  function applySplitTabVisibility() {
+    var onExpenses = activeSplitTab === 'expenses';
+    document.getElementById('expensesTabPanel').style.display = onExpenses ? 'block' : 'none';
+    document.getElementById('totalTabPanel').style.display = onExpenses ? 'none' : 'block';
+    document.getElementById('tabExpensesBtn').classList.toggle('active', onExpenses);
+    document.getElementById('tabTotalBtn').classList.toggle('active', !onExpenses);
+    document.querySelector('.add-expense-fab').style.display = onExpenses ? '' : 'none';
+  }
 
   function saveData() {
     setDoc(splitDocRef, data).catch(function (e) { console.error('Split Expenses: save failed', e); });
@@ -1097,10 +1132,15 @@ import { getFirestore, doc, setDoc, onSnapshot } from "https://www.gstatic.com/f
   window.openSplitModal = function () {
     document.getElementById('splitModal').classList.add('open');
     showForm = false;
+    activeSplitTab = 'expenses';
     render();
   };
   window.closeSplitModal = function () {
     document.getElementById('splitModal').classList.remove('open');
+  };
+  window.switchSplitTab = function (tab) {
+    activeSplitTab = tab;
+    applySplitTabVisibility();
   };
   window.togglePeoplePanel = function () {
     var panel = document.getElementById('peoplePanel');
@@ -1226,6 +1266,7 @@ import { getFirestore, doc, setDoc, onSnapshot } from "https://www.gstatic.com/f
   }
 
   function render() {
+    applySplitTabVisibility();
     document.getElementById('splitPeopleChips').innerHTML = data.people.length
       ? data.people.map(function (p) {
           return '<span class="chip">' + escapeHtml(p.name) +
