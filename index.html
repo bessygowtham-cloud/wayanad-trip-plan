@@ -476,6 +476,18 @@
     font-size: 0.875rem;
   }
 
+  .individual-spend-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-3) var(--space-4);
+    margin-bottom: var(--space-4);
+    background: rgba(79, 70, 229, 0.07);
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 0.9375rem;
+  }
+
   .settlement-amount {
     font-weight: 800;
     color: var(--day4);
@@ -1096,6 +1108,7 @@
     </div>
 
     <div class="split-section" id="totalTabPanel" style="display:none; margin-bottom:0;">
+      <div id="splitIndividualSpend"></div>
       <div id="splitSettlements"></div>
     </div>
   </div>
@@ -1342,6 +1355,9 @@ import { getFirestore, doc, setDoc, onSnapshot } from "https://www.gstatic.com/f
     var settlements = computeSettlements();
     var total = data.expenses.reduce(function (s, e) { return s + e.amount; }, 0);
     document.getElementById('splitTotal').textContent = 'Total spent: ' + fmt(total);
+    document.getElementById('splitIndividualSpend').innerHTML = data.people.length
+      ? '<div class="individual-spend-row"><span>Individual spend</span><span>' + fmt(total / data.people.length) + '</span></div>'
+      : '';
     document.getElementById('splitSettlements').innerHTML = settlements.length
       ? settlements.map(function (s) {
           return '<div class="settlement-row"><span><b>' + escapeHtml(nameOf(s.from)) + '</b> owes <b>' +
