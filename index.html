@@ -1425,7 +1425,7 @@ import { getFirestore, doc, setDoc, onSnapshot } from "https://www.gstatic.com/f
       catTotals[cat] = (catTotals[cat] || 0) + e.amount;
     });
     var breakdown = EXPENSE_CATEGORIES.filter(function (c) { return catTotals[c]; })
-      .map(function (c) { return escapeHtml(c) + ' ' + fmt(catTotals[c]); }).join(' &middot; ');
+      .map(function (c) { return escapeHtml(c) + ' <b>' + fmt(catTotals[c]) + '</b>'; }).join(' | ');
     document.getElementById('splitIndividualSpend').innerHTML = data.people.length
       ? '<div class="individual-spend-row">' +
           '<div class="individual-spend-main"><span>Individual spend</span><span>' + fmt(total / data.people.length) + '</span></div>' +
