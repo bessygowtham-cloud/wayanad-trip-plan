@@ -478,14 +478,26 @@
 
   .individual-spend-row {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
+    gap: 6px;
     padding: var(--space-3) var(--space-4);
     margin-bottom: var(--space-4);
     background: rgba(79, 70, 229, 0.07);
     border-radius: 12px;
+  }
+
+  .individual-spend-main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     font-weight: 700;
     font-size: 0.9375rem;
+  }
+
+  .individual-spend-breakdown {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--color-neutral-700);
   }
 
   .settlement-amount {
@@ -1102,6 +1114,7 @@
         <div class="split-input-row">
           <input type="text" class="split-input" id="expenseAmount" style="font-size:1.05rem;" placeholder="Amount (&#8377;)" inputmode="decimal">
         </div>
+        <div class="chip-row" id="expenseCategoryChips" style="margin-bottom:var(--space-3);"></div>
         <div style="margin-bottom:var(--space-3);">
           <div class="split-subheading">Paid by</div>
           <div class="chip-row" id="paidByChips"></div>
@@ -1148,8 +1161,11 @@ import { getFirestore, doc, setDoc, onSnapshot } from "https://www.gstatic.com/f
   var editingExpenseId = null;
   var formPaidBy = null;
   var formSplit = [];
+  var formCategory = null;
   var showForm = false;
   var activeSplitTab = 'expenses';
+  var EXPENSE_CATEGORIES = ['Food', 'Fuel', 'Room', 'Park & Entry', 'Drink & Others'];
+  var DEFAULT_CATEGORY = 'Drink & Others';
 
   function applySplitTabVisibility() {
     var onExpenses = activeSplitTab === 'expenses';
@@ -1224,6 +1240,7 @@ import { getFirestore, doc, setDoc, onSnapshot } from "https://www.gstatic.com/f
     editingExpenseId = null;
     formPaidBy = data.people[0].id;
     formSplit = data.people.map(function (p) { return p.id; });
+    formCategory = DEFAULT_CATEGORY;
     document.getElementById('expenseDesc').value = '';
     document.getElementById('expenseAmount').value = '';
     showForm = true;
@@ -1240,6 +1257,7 @@ import { getFirestore, doc, setDoc, onSnapshot } from "https://www.gstatic.com/f
     formPaidBy = validIds[e.paidBy] ? e.paidBy : data.people[0].id;
     formSplit = (e.splitAmong || []).filter(function (pid) { return validIds[pid]; });
     if (!formSplit.length) formSplit = data.people.map(function (p) { return p.id; });
+    formCategory = e.category || DEFAULT_CATEGORY;
     showForm = true;
     render();
   };
@@ -1248,6 +1266,7 @@ import { getFirestore, doc, setDoc, onSnapshot } from "https://www.gstatic.com/f
     render();
   };
   window.setFormPaidBy = function (id) { formPaidBy = id; render(); };
+  window.setFormCategory = function (cat) { formCategory = cat; render(); };
   window.toggleFormSplit = function (id) {
     formSplit = formSplit.indexOf(id) !== -1
       ? formSplit.filter(function (x) { return x !== id; })
@@ -1267,11 +1286,13 @@ import { getFirestore, doc, setDoc, onSnapshot } from "https://www.gstatic.com/f
         e.amount = amount;
         e.paidBy = formPaidBy;
         e.splitAmong = formSplit.slice();
+        e.category = formCategory || DEFAULT_CATEGORY;
       }
     } else {
       data.expenses.push({
         id: uid(), desc: desc || 'Expense', amount: amount,
         paidBy: formPaidBy, splitAmong: formSplit.slice(),
+        category: formCategory || DEFAULT_CATEGORY,
         createdAt: Date.now(),
       });
     }
@@ -1333,6 +1354,10 @@ import { getFirestore, doc, setDoc, onSnapshot } from "https://www.gstatic.com/f
         return '<button type="button" class="chip' + (formSplit.indexOf(p.id) !== -1 ? ' selected' : '') +
           '" onclick="toggleFormSplit(\'' + p.id + '\')">' + escapeHtml(p.name) + '</button>';
       }).join('');
+      document.getElementById('expenseCategoryChips').innerHTML = EXPENSE_CATEGORIES.map(function (c) {
+        return '<button type="button" class="chip' + (formCategory === c ? ' selected' : '') +
+          '" onclick="setFormCategory(\'' + c + '\')">' + escapeHtml(c) + '</button>';
+      }).join('');
     } else {
       formEl.style.display = 'none';
     }
@@ -1367,8 +1392,18 @@ import { getFirestore, doc, setDoc, onSnapshot } from "https://www.gstatic.com/f
     var settlements = computeSettlements();
     var total = data.expenses.reduce(function (s, e) { return s + e.amount; }, 0);
     document.getElementById('splitTotal').textContent = 'Total spent: ' + fmt(total);
+    var catTotals = {};
+    data.expenses.forEach(function (e) {
+      var cat = e.category || DEFAULT_CATEGORY;
+      catTotals[cat] = (catTotals[cat] || 0) + e.amount;
+    });
+    var breakdown = EXPENSE_CATEGORIES.filter(function (c) { return catTotals[c]; })
+      .map(function (c) { return escapeHtml(c) + ' ' + fmt(catTotals[c]); }).join(' &middot; ');
     document.getElementById('splitIndividualSpend').innerHTML = data.people.length
-      ? '<div class="individual-spend-row"><span>Individual spend</span><span>' + fmt(total / data.people.length) + '</span></div>'
+      ? '<div class="individual-spend-row">' +
+          '<div class="individual-spend-main"><span>Individual spend</span><span>' + fmt(total / data.people.length) + '</span></div>' +
+          (breakdown ? '<div class="individual-spend-breakdown">' + breakdown + '</div>' : '') +
+        '</div>'
       : '';
     document.getElementById('splitSettlements').innerHTML = settlements.length
       ? settlements.map(function (s) {
