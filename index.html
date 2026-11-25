@@ -324,6 +324,33 @@
     box-shadow: 0 6px 16px rgba(63, 100, 134, 0.28);
   }
 
+  .chip-category {
+    font-family: var(--font);
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 5px 11px;
+    border: 1px solid rgba(13, 148, 136, 0.3);
+    background: rgba(13, 148, 136, 0.07);
+    color: var(--day2);
+    cursor: pointer;
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .chip-category:hover {
+    transform: translateY(-1px);
+  }
+
+  .chip-category.selected {
+    background: var(--day2);
+    color: #ffffff;
+    border-color: transparent;
+    box-shadow: 0 6px 16px rgba(13, 148, 136, 0.28);
+  }
+
   .chip-remove {
     cursor: pointer;
     font-weight: 800;
@@ -1164,8 +1191,8 @@ import { getFirestore, doc, setDoc, onSnapshot } from "https://www.gstatic.com/f
   var formCategory = null;
   var showForm = false;
   var activeSplitTab = 'expenses';
-  var EXPENSE_CATEGORIES = ['Food', 'Fuel', 'Room', 'Park & Entry', 'Drink & Others'];
-  var DEFAULT_CATEGORY = 'Drink & Others';
+  var EXPENSE_CATEGORIES = ['Food', 'Fuel', 'Room', 'Park & Entry', 'Drinks', 'Others'];
+  var DEFAULT_CATEGORY = 'Others';
 
   function applySplitTabVisibility() {
     var onExpenses = activeSplitTab === 'expenses';
@@ -1355,7 +1382,7 @@ import { getFirestore, doc, setDoc, onSnapshot } from "https://www.gstatic.com/f
           '" onclick="toggleFormSplit(\'' + p.id + '\')">' + escapeHtml(p.name) + '</button>';
       }).join('');
       document.getElementById('expenseCategoryChips').innerHTML = EXPENSE_CATEGORIES.map(function (c) {
-        return '<button type="button" class="chip' + (formCategory === c ? ' selected' : '') +
+        return '<button type="button" class="chip-category' + (formCategory === c ? ' selected' : '') +
           '" onclick="setFormCategory(\'' + c + '\')">' + escapeHtml(c) + '</button>';
       }).join('');
     } else {
